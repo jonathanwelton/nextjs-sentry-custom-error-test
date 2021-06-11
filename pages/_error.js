@@ -1,6 +1,6 @@
-import NextErrorComponent from 'next/error'
-
 import * as Sentry from '@sentry/nextjs'
+
+import NextErrorComponent from 'next/error'
 
 const MyError = ({ statusCode, hasGetInitialPropsRun, err }) => {
   if (!hasGetInitialPropsRun && err) {
@@ -11,7 +11,14 @@ const MyError = ({ statusCode, hasGetInitialPropsRun, err }) => {
     // Flushing is not required in this case as it only happens on the client
   }
 
-  return <NextErrorComponent statusCode={statusCode} />
+  // return <NextErrorComponent statusCode={statusCode} />
+    return (
+    <p>
+      {statusCode
+        ? `An error ${statusCode} occurred on server`
+        : 'An error occurred on client'}
+    </p>
+  )
 }
 
 MyError.getInitialProps = async ({ res, err, asPath }) => {
